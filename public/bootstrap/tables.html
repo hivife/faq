@@ -202,7 +202,7 @@ $dbname = "mydb";
 
 	$counter = 0;
 	$conn = new PDO("mysql:host=$dbservername;dbname=myDB", $dbusername, $dbpassword);
-	$sql1 = "SELECT * FROM qa WHERE answer = '' ";
+	$sql1 = "SELECT * FROM qa INNER JOIN category WHERE category.category_id = qa.category_id";
 	$sql2 = "SELECT * FROM qa WHERE answer != ''";
 	if(isset($_GET['question']) && isset($_GET['answer']) && !isset($delete)&& !isset($edit) && !isset($create)){
 		$sql = "UPDATE qa SET answer = ? WHERE question = ? AND category = ? AND userid = ?;";

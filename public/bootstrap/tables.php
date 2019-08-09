@@ -46,7 +46,7 @@ $dbname = "mydb";
 	$counter = 0;
 	$conn = new PDO("mysql:host=$dbservername;dbname=myDB", $dbusername, $dbpassword);
 	$sql1 = "SELECT * FROM qa WHERE answer = '' ";
-	$sql2 = "SELECT * FROM qa ";
+	$sql2 = "SELECT * FROM qa INNER JOIN category ON category.category_id = qa.category_id";
 	if(isset($_GET['question']) && isset($_GET['answer']) && !isset($delete)&& !isset($edit) && !isset($create)){
 		$sql = "UPDATE qa SET answer = ? WHERE question = ? AND category = ? AND userid = ?;";
 		$temp = $conn->prepare($sql);
@@ -78,7 +78,7 @@ $dbname = "mydb";
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin - Tables</title>
+  <title>FAQ Admin</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -199,7 +199,7 @@ $dbname = "mydb";
 		echo "<textarea style='float:left;' class='form-control' class='".$counter."' type ='text' >".$item['question']."</textarea>";
 		echo "</td>";
 		echo "<td>";
-		echo "<textarea style='float:left;' class='form-control' class='".$counter2."' type ='text'>".$item['category']."</textarea>";
+		echo "<textarea style='float:left;' class='form-control' class='".$counter2."' type ='text'>".$item['name']."</textarea>";
 		echo "</td>";
 		echo "<td>";
 		echo "<textarea style='float:left;' class='form-control' class='".$counter3."' type ='text' >".$item['answer']."</textarea>";
@@ -211,8 +211,8 @@ $dbname = "mydb";
 		echo $item['nothelpful'];
 		echo "</td>";
 		echo "<td>";
-		$onclickparamdelete = "deletequestion('".$item['question']."','".$item['category']."','".$item['userid']."')";
-		$onclickparamedit = "editquestion('".$counter."','".$counter2."','".$counter3."','".$item['answer']."','".$item['category']."','".$item['question']."')";
+		$onclickparamdelete = "deletequestion('".$item['question']."','".$item['name']."','".$item['userid']."')";
+		$onclickparamedit = "editquestion('".$counter."','".$counter2."','".$counter3."','".$item['answer']."','".$item['name']."','".$item['question']."')";
 		echo "<button class='btn btn-primary' onclick=\"".$onclickparamedit."\">edit</button> ";
 		echo "<button class='btn btn-primary' onclick=\"".$onclickparamdelete."\">delete</button> ";
 		echo "</td>";

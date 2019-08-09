@@ -1,15 +1,12 @@
 <?php 
 
-include '../functions.php';
 
+$result = array();
 
-if(isset($_GET['question']) && isset($_GET['category']) && isset($_GET['answer']) && isset($_GET['rating']) && isset($_GET['userid'])){
+if(isset($_POST['question_id']) && isset($_POST['rating'])){
 
-$question = $_GET['question'];
-$category = $_GET['category'];
-$rating = $_GET['rating'];
-$answer = $_GET['answer'];
-$userid = $_GET['userid'];
+$question_id = $_POST['question_id'];
+$rating = $_POST['rating'];	
 
 	$dbservername = "localhost";
 	$dbusername = "root";
@@ -20,21 +17,26 @@ $userid = $_GET['userid'];
 		die("Connection failed: " . $conn->connect_error);
 	} 
 	if($rating == 1){
-		$sql = "UPDATE qa SET helpful = helpful + 1 WHERE category = ? AND question=? AND answer = ?";
+		$sql = "UPDATE qa SET helpful = helpful + 1 WHERE question_id = :id";
 		$temp = $conn->prepare($sql);
-		$temp->execute([$category,$question,$answer]);
+		$temp->execute(array('id' => $question_id));
 	}
 	if($rating == 0){
-		$sql = "UPDATE qa SET nothelpful = nothelpful + 1 WHERE category = ? AND question=? AND answer = ?";
+		$sql = "UPDATE qa SET nothelpful = nothelpful + 1 WHERE question_id = :id";
 		$temp2 = $conn->prepare($sql);
-		$temp2->execute([$category,$question,$answer]);
+		$temp2->execute(array('id' => $question_id));
 	}
 
-	
-echo 1;
+	$result['message'] = "successful";
+	$result['question_id'] = $question_id;
+	$result['status'] = 1;
+	echo json_encode($result);
 }
 else{
-	echo 0;
+	$result['message'] = "not successful";
+	$result['question_id'] = $question_id;
+	$result['status'] = 0;
+	echo json_encode($result);
 }
 
 
