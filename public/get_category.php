@@ -1,6 +1,7 @@
 <?php header('Content-Type:application/json');
 
 if(isset($_POST['token'])){
+		echo 23;
 	$token = $_POST['token'];
 }
 else{
@@ -22,6 +23,7 @@ $sql3 = "SELECT * FROM user WHERE token = :token";
 $temp = $conn->prepare($sql3);
 $temp->execute(array('token' => $token));
 if($temp->rowCount() != 0){
+
 	$auth = true;
 }
 if(!$conn){

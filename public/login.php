@@ -7,13 +7,14 @@ if(isset($_POST['token'])){
 	$token = $_POST['token'];
 }
 
+
 $dbservername = "localhost";
 $dbusername = "root";		
 $dbpassword = "";
 $dbname = "mydb";
 $token = bin2hex(random_bytes(64));
 $result = array();
-
+//UPDATE user SET token = 123 , validate = current_timestamp() WHERE username = ?
 if(isset($username) && isset($password)){
 	try {
 		$conn = new PDO("mysql:host=$dbservername;dbname=$dbname", $dbusername, $dbpassword);
@@ -23,9 +24,9 @@ if(isset($username) && isset($password)){
 		if($temp->rowCount() != 0){
 			foreach ($temp as $item){
 			if($item['password'] == $password){
-				$sql1 = "UPDATE user SET token = :token , validate = current_timestamp() WHERE username = :name AND password = :password";
+				$sql1 = "UPDATE user SET token= ? WHERE username =?"; 
 				$temp = $conn-> prepare($sql1);
-				echo $temp->execute(array('name' => $username,'token' => $token,'password' => $password));
+				$temp->execute([$token,$username]);
 				$result['status'] = 1;
 				$result['message'] = $token;
 				echo json_encode($result);

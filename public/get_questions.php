@@ -37,24 +37,6 @@ if(isset($category_id)){
 	if($auth){
 		$temp = $conn->prepare($sql1);
 		$temp->execute(array('id' => $category_id));
-		/*foreach ( $temp as $item){
-			$result['question'.$counter] = $item['question'];
-			$result['answer'.$counter] = $item['answer'];
-			$result['question_id'.$counter] = $item['question_id'];
-			$result['private'] = $item['private'];
-			$counter++;
-		}
-		$temp = $conn->prepare($sql2);
-		$temp->execute(array('id' => $category_id));
-		foreach ($temp as $item){
-			$result['question'.$counter] = $item['question'];
-			$result['answer'.$counter] = $item['answer'];
-			$result['question_id'.$counter] = $item['question_id'];
-			$result['private'.$counter] = $item['private'];
-			$counter++;
-		}
-		
-		$result['status'] = 1;*/
 		$result = $temp->fetchAll(PDO::FETCH_ASSOC);
 		echo json_encode($result);	
 	
