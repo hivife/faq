@@ -65,6 +65,14 @@ $dbname = "mydb";
 		//$sql1 = "SELECT id FROM category WHERE name = :name";
 		//$temp = $conn->prepare($sql);
 		//$temp->execute(array("name" => $category));
+		$sql4 = "SELECT category_id FROM category WHERE name =? ";
+		$temp = $conn->prepare($sql4);
+		$temp->execute([$category,]);
+		if($temp->rowCount() == 0){
+			$sql4 = "INSERT INTO category (name,private)VALUES(?,1)";
+			$temp = $conn->prepare($sql4);
+			$temp->execute([$category,]);
+		}
 		$sql = "UPDATE qa SET answer = ?, question = ?, category_id = (SELECT category_id FROM category WHERE name = ?) WHERE question_id = ?";
 		$temp = $conn->prepare($sql);
 		$temp->execute([$answer,$question,$category,$question_id]);
@@ -128,7 +136,6 @@ $dbname = "mydb";
 	}	
 	function deletequestion(question_id){
 		var param = "question_id=" + question_id + "&delete=1";
-		window.location="https://google.com";
 		window.open("tables.php?"+param,"_self");
 
 	}
@@ -152,6 +159,10 @@ $dbname = "mydb";
 		var questionenc = encodeURI(question);
 		var answerenc = encodeURI(answer);
 		var param = "question=" + questionenc + "&answer=" + answerenc + "&category_id=" + category + "&create=1";
+		window.open("tables.php?"+param,"_self");
+	}
+	function pulishquestion(question_id){
+		var param = "question_id=" + question_id + "&publish=1";
 		window.open("tables.php?"+param,"_self");
 	}
 	</script>	
@@ -244,10 +255,14 @@ $dbname = "mydb";
 		echo $item['nothelpful'];
 		echo "</td>";
 		echo "<td>";
-		$onclickparamdelete = "	('".$item['question_id']."')";
+		$onclickparamdelete = "deletequestion('".$item['question_id']."')";
+		$onclickparampublish = "pulishquestion('".$item['question_id']."')";
 		$onclickparamedit = "editquestion('".$counter."','".$counter2."','".$counter3."','".$item['question_id']."')";
 		echo "<button class='btn btn-primary' onclick=\"".$onclickparamedit."\">edit</button> ";
 		echo "<button class='btn btn-primary' onclick=\"".$onclickparamdelete."\">delete</button> ";
+		/* if($item['private'] == 0){
+			echo "<button class='btn btn-primary' onclick=\"".$onclickparampublish."\">publish</button> ";
+		} */
 		echo "</td>";
 		echo "<br>";
 		echo "</tr>";
