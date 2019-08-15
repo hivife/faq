@@ -1,0 +1,15 @@
+.red{
+    color: red;
+}
+
+.green{
+    color: green;
+}
+.logo_img{
+    width:50px;
+    padding: 0 5px;
+}
+
+.has-error .help-block{
+    color: red;
+}

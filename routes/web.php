@@ -15,12 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/category', 'faq@category');
-Route::get('/question/{category_id}', 'faq@get_question');
-Route::get('/rate/{question_id}/{rating}', 'faq@rate');
-//Route::post('/ratepost/', 'faq@ratepost');	
-Route::get('/search/{keyword}', 'faq@search');
-
 
 Route::group([
     'prefix' => 'auth'
@@ -37,4 +31,17 @@ Route::group([
 });
 Auth::routes();
 
+Route::get('/admin', 'AdminController@index');
+Route::get('/edit/{question_id}/{answer}/{question}/{category_id}', 'AdminController@editquestion');
+Route::get('/create/{question}/{answer}/{category_id}', 'AdminController@createquestion');
+Route::get('/admin/publish/{question_id}', 'AdminController@publish');
+Route::get('/admin/category/publish/{question_id}', 'AdminController@publishcat');
+Route::get('/admin/category/private/{question_id}', 'AdminController@privatecat');
+Route::get('/admin/category/delete/{question_id}', 'AdminController@deletecat');
+Route::get('/admin/create', 'AdminController@create');
+Route::get('/admin/category', 'AdminController@category');
+Route::get('/admin/edit/{question_id}', 'AdminController@edit')->name('edit');
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
