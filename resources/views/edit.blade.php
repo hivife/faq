@@ -9,9 +9,9 @@
 			var e = document.getElementById("category");
 			var category = e.options[e.selectedIndex].value;
 			var questionenc = encodeURI(question);
-			var answerenc = encodeURI(answer);
-			var param = "question=" + questionenc + "&answer=" + answerenc + "&category_id	=" + category  + "&question_id=" + {{$question['id']}};
-			mywind = window.open("/edit/{{$question['id']}}/"+answerenc+"/"+questionenc+"/"+category+"","_self");
+			var answerenc = encodeURI(answer);	
+			//var param = "question=" + questionenc + "&answer=" + answerenc + "&category_id	=" + category  + "&question_id="+;
+			mywind = window.open("/edit/@if(isset($question['id'])) {{$question['id']}} @else 0 @endif/"+answerenc+"/"+questionenc+"/"+category+"","_self");
 		});
 		}
 </script>

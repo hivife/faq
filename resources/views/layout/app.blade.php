@@ -24,7 +24,7 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
     <a class="navbar-brand mr-1" href="">
-        <img class="logo_img" src="image/alif_logo.png"">Alif FAQ
+        <img class="logo_img" src="{{ asset('image/alif_logo.png') }}">Alif FAQ
     </a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">

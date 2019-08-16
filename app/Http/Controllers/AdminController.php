@@ -30,9 +30,20 @@ class AdminController extends Controller
 		return view('edit',['question' => $question,'category' => $category]);
 	
 	}
+	function editcat($category_id){
+		$category = category::find($category_id);		
+		return view('editcat',['category' => $category]);
+	
+	}
 	function editquestion($question_id,$answer,$question,$category_id){
 		//dd($question_id,$question,$answer,$category_id);
-		$question1 = qa::find($question_id);
+		if($question_id != 0){
+			$question1 = qa::find($question_id);
+		}
+		else{
+			$question1 = new qa;
+			$question1->private = 1;
+		}
 		$question1->answer = $answer;
 		$question1->question = $question;
 		$question1->category_id = $category_id;	
@@ -88,6 +99,20 @@ class AdminController extends Controller
 		$question = category::where('category_id',$category_id)->first();
 		$question->private = 1;
 		$question->save();
+		return redirect('admin/category');
+	}
+	function savecat($category_id,$name){
+		if($category_id != 0){
+			$question = category::where('category_id',$category_id)->first();
+			$question->name = $name;
+			$question->save();
+		}
+		else{
+			$question = new category;
+			$question->name = $name;
+			$question->private = 1;
+			$question->save();
+		}
 		return redirect('admin/category');
 	}
 }

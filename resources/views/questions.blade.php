@@ -5,7 +5,7 @@
          <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            <h2>Edit Questions</h2></div>
+            <h2>Edit Questions<a href="/admin/edit/0"><button style='margin-left:20px' class='btn btn-primary'>Create</button></a></h2></div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

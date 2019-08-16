@@ -18,7 +18,7 @@ class CreateQaTable extends Migration
 			$table->text('question');
 			$table->text('answer');
 			$table->integer('category_id');
-			$table->integer('private');	
+			$table->integer('private')->default(0);	
 			$table->integer('helpful')->default(0);
 			$table->integer('nothelpful')->default(0);
             $table->timestamps();

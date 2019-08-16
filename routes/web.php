@@ -37,11 +37,14 @@ Route::get('/create/{question}/{answer}/{category_id}', 'AdminController@createq
 Route::get('/admin/publish/{question_id}', 'AdminController@publish');
 Route::get('/admin/category/publish/{question_id}', 'AdminController@publishcat');
 Route::get('/admin/category/private/{question_id}', 'AdminController@privatecat');
+Route::get('/admin/delete/{question_id}', 'AdminController@delete');
 Route::get('/admin/category/delete/{question_id}', 'AdminController@deletecat');
-Route::get('/admin/create', 'AdminController@create');
+Route::get('/admin/create', 'AdminController@create');	
 Route::get('/admin/category', 'AdminController@category');
-Route::get('/admin/edit/{question_id}', 'AdminController@edit')->name('edit');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin/edit/{question_id}', 'AdminController@edit');
+Route::get('/admin/category/edit/{category_id}', 'AdminController@editcat');
+Route::get('/edit/category/{category_id}/{name}', 'AdminController@savecat');
+Route::get('/home', 'HomeController@index');
 
 
 
